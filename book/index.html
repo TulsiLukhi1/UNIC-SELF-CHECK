@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Book your UNIC Founder Session</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Raleway:wght@500;600;700;800&display=swap');
+    :root{--teal:#16C1C1;--mint:#B5FFC1;--frost:#E0F7FA;--ink:#080909;--muted:rgba(0,0,0,.62);--line:rgba(0,0,0,.14)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:linear-gradient(135deg,#fff 0%,#fff 62%,#E0F7FA 100%);color:var(--ink);font-family:'Questrial',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    .page{width:min(100% - 36px,960px);margin:0 auto;padding:48px 0 52px}
+    .brand{display:flex;align-items:center;gap:10px;margin-bottom:34px}
+    .brand-mark{width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 7px rgba(22,193,193,.12)}
+    .brand-name{font:800 13px 'Raleway',Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase}
+    .eyebrow{font:700 11px 'Raleway',Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#078989;margin:0 0 13px}
+    h1{font:800 clamp(32px,5vw,48px)/1.08 'Raleway',Arial,sans-serif;letter-spacing:-.035em;margin:0 0 14px}
+    h1 span{background:linear-gradient(transparent 70%,var(--mint) 70%,var(--mint) 94%,transparent 94%)}
+    .intro{font-size:18px;line-height:1.55;color:var(--muted);margin:0;max-width:590px}
+    .card{margin-top:30px;padding:clamp(22px,4vw,34px);background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 32px rgba(0,0,0,.07)}
+    .section-label{font:700 12px 'Raleway',Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+    .slots{display:grid;gap:10px}
+    .slot-option{position:relative;display:flex;align-items:center;gap:13px;padding:17px 18px;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:#fff}
+    .slot-option:has(input:checked){border-color:var(--teal);background:var(--frost);box-shadow:0 0 0 2px rgba(22,193,193,.12)}
+    .slot-option input{position:absolute;opacity:0}
+    .slot-radio{width:19px;height:19px;flex:none;border:1.5px solid rgba(0,0,0,.42);border-radius:50%}
+    .slot-option input:checked+.slot-radio{border:6px solid var(--teal)}
+    .slot-label{font-size:16px;line-height:1.4}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+    .field{display:grid;gap:7px}
+    .field label{font-size:14px;color:var(--muted)}
+    .field input{width:100%;border:1px solid rgba(0,0,0,.18);border-radius:10px;padding:13px 14px;font:16px 'Questrial',Arial,sans-serif;background:#f7fafa;color:#555}
+    .submit{width:100%;margin-top:24px;border:0;border-radius:999px;padding:17px 24px;background:#000;color:#B5FFC1;font:600 16px 'Raleway',Arial,sans-serif;cursor:pointer}
+    .submit:disabled{opacity:.55;cursor:wait}
+    .message{display:none;margin-top:18px;padding:15px 17px;border-radius:13px;font-size:15px;line-height:1.5}
+    .message.show{display:block}.message.success{background:#e9fff0;border:1px solid #a8e8b8;color:#145b2a}.message.error{background:#fff1f0;border:1px solid #ffc6c1;color:#a1261d}
+    .already{padding:20px;border-radius:16px;background:#e9fff0;border:1px solid #a8e8b8;color:#145b2a;line-height:1.55}
+    .already strong{display:block;font:700 19px 'Raleway',Arial,sans-serif;margin-bottom:5px}
+    .no-slots{padding:18px;border-radius:14px;background:#f7fafa;color:var(--muted);line-height:1.5}
+    .foot{display:flex;align-items:center;gap:9px;margin:24px 4px 0;color:var(--muted);font-size:13px}
+    .foot-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;flex:none}
+    .loading{padding:20px;color:var(--muted)}
+    .reserved-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#e9fff0;color:#145b2a;font:700 12px 'Raleway',Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px}
+    .payment-title{font:800 clamp(27px,4vw,36px)/1.12 'Raleway',Arial,sans-serif;margin:0 0 12px;letter-spacing:-.03em}
+    .payment-copy{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 20px}
+    .payment-panel{margin-top:18px;padding:20px;border:1px solid var(--line);border-radius:16px;background:#f7fbfa}
+    .payment-panel h3{font:700 15px 'Raleway',Arial,sans-serif;margin:0 0 14px}
+    .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .payment-item{padding:11px 12px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;min-width:0}
+    .payment-item small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
+    .payment-item strong{display:block;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+    .qr-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14px}
+    .qr-image{width:164px;height:164px;object-fit:contain;padding:8px;background:#fff;border:1px solid var(--line);border-radius:12px}
+    .qr-placeholder{width:164px;height:164px;display:grid;place-items:center;text-align:center;padding:16px;background:#fff;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px;line-height:1.4}
+    .steps{padding-left:20px;margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.75}
+    .email-cta{display:block;text-align:center;margin-top:20px;padding:16px 22px;border-radius:999px;background:#080909;color:#B5FFC1;text-decoration:none;font:700 14px 'Raleway',Arial,sans-serif}
+    .test-warning{margin-top:14px;padding:12px 14px;border-radius:10px;background:#fff8e8;border:1px solid #f2d49a;color:#805b16;font-size:13px;line-height:1.5}
+
+    .state-card{
+      border:none;
+      border-radius:0;
+      padding:0;
+      background:transparent;
+    }
+    .state-heading{display:flex;align-items:center;gap:12px;font:700 22px 'Raleway',Arial,sans-serif;margin:0 0 26px}
+    .state-check{width:24px;height:24px;display:inline-grid;place-items:center;border:2px solid #16a34a;border-radius:50%;color:#16a34a;font-size:16px;flex:none}
+    .state-title{font:700 clamp(25px,3vw,30px)/1.2 'Raleway',Arial,sans-serif;margin:0 0 20px}
+    .state-copy{font-size:18px;line-height:1.65;margin:0 0 20px;color:#111}
+    .session-summary{padding:20px 18px;border-radius:16px;background:#effaf8;margin:0 0 22px}
+    .session-summary h3,.payment-section h3{font:700 20px 'Raleway',Arial,sans-serif;margin:0 0 14px}
+    .session-line{font-size:18px;line-height:1.65;margin:0 0 6px}
+    .session-line:last-child{margin-bottom:0}
+    .payment-section{margin:0 0 22px}
+    .qr-panel{border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;background:#fff}
+    .qr-image{display:block;width:210px;height:210px;object-fit:contain;padding:14px;margin:0 auto 14px;background:#f5f5f5;border:1px solid var(--line);border-radius:20px}
+    .qr-placeholder{width:210px;height:210px;display:grid;place-items:center;text-align:center;padding:16px;margin:0 auto 14px;background:#fff;border:1px dashed var(--line);border-radius:20px;color:var(--muted);font-size:14px;line-height:1.5}
+    .qr-caption{font-size:18px;margin:0 0 8px}
+    .qr-note{font-size:16px;color:var(--muted);margin:0}
+    .payment-meta{margin:14px auto 0;max-width:760px;text-align:left;display:grid;gap:8px}
+    .payment-meta p{margin:0;font-size:15px;line-height:1.5;overflow-wrap:anywhere}
+    .bank-panel{margin-top:16px;padding:16px;border-radius:14px;background:#f7fbfa;border:1px solid var(--line);text-align:left}
+    .bank-panel h4{font:700 16px 'Raleway',Arial,sans-serif;margin:0 0 10px}
+    .bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+    .bank-grid p{margin:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+    .steps{padding-left:24px;margin:10px 0 0;color:#111;font-size:17px;line-height:1.75}
+    .email-cta{display:block;text-align:center;margin:22px auto 0;padding:18px 22px;border-radius:999px;background:#080909;color:#B5FFC1;text-decoration:none;font:700 17px 'Raleway',Arial,sans-serif;max-width:100%}
+    .booked-message{padding:22px;border:1px solid #b7e6c3;background:#f0fff4;border-radius:16px;font-size:17px;line-height:1.6}
+    .booked-message strong{display:block;font:700 24px 'Raleway',Arial,sans-serif;margin-bottom:8px}
+    @media(max-width:560px){.state-card{padding:18px 14px}.bank-grid{grid-template-columns:1fr}.state-heading{font-size:18px}.state-copy{font-size:16px}.steps{font-size:15px}.qr-image,.qr-placeholder{width:190px;height:190px}}
+
+    @media(max-width:560px){.payment-grid{grid-template-columns:1fr}.qr-wrap{justify-content:center;text-align:center}}
+    @media(max-width:560px){.page{width:min(100% - 24px,760px);padding-top:28px}.fields{grid-template-columns:1fr}.card{border-radius:18px}.slot-option{padding:15px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand"><span class="brand-mark"></span><span class="brand-name">UNIC Business Builders</span></div>
+    <header id="bookingHeader">
+      <p class="eyebrow">Your next step</p>
+      <h1>Choose your <span>Founder Session</span></h1>
+      <p class="intro">Select one available 90-minute session. All times are in Indian Standard Time (IST).</p>
+    </header>
+    <section class="card" id="content"><div class="loading">Loading your available sessions…</div></section>
+    <div class="foot"><span class="foot-dot"></span><span>Questions? Reply to your UNIC Founder Session email.</span></div>
+  </main>
+<script>
+(function(){
+  const content=document.getElementById('content');
+  const params=new URLSearchParams(window.location.search);
+  const token=params.get('booking')||'';
+  const api='/.netlify/functions/booking';
+
+  function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  async function callApi(payload){
+    const response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await response.json().catch(()=>null);
+    if(!response.ok||!data) throw new Error((data&&data.message)||'We could not reach the booking service. Please try again.');
+    return data;
+  }
+  function showError(message){
+    content.innerHTML='<div class="no-slots">'+esc(message)+'</div>';
+  }
+  function hideBookingHeader(){
+    const header=document.getElementById('bookingHeader');
+    if(header)header.style.display='none';
+  }
+  function paymentMarkup(payment, sessionLabel, name, email){
+    payment=payment||{};
+    const subject='Payment confirmation – UNIC Founder Session';
+    const body='Hi UNIC Team,\n\nI have completed the payment for my reserved Founder Session.\n\nName: '+(name||'')+'\nEmail: '+(email||'')+'\nSession: '+(sessionLabel||'')+'\nAmount: '+(payment.fee||'')+'\n\nI have attached my payment proof.\n\nThank you.';
+    const mailto='mailto:colab@unicbiz.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    const qr=payment.qrImageUrl
+      ? '<img class="qr-image" src="'+esc(payment.qrImageUrl)+'" alt="UNIC payment QR code">'
+      : '<div class="qr-placeholder">Payment QR unavailable. Please contact colab@unicbiz.com before making payment.</div>';
+    const parts=String(sessionLabel||'').split(' · ');
+    const dateLabel=parts[0]||'Your selected session';
+    const timeLabel=parts.slice(1).join(' · ');
+    const bank=[['Account holder',payment.accountHolder],['Bank',payment.bankName],['Account number',payment.accountNumber],['IFSC',payment.ifsc],['Branch',payment.branch]].filter(x=>x[1]);
+    const bankMarkup=bank.length
+      ? '<div class="bank-panel"><h4>Bank transfer details</h4><div class="bank-grid">'+bank.map(x=>'<p><strong>'+esc(x[0])+':</strong> '+esc(x[1])+'</p>').join('')+'</div></div>'
+      : '';
+    return '<div class="state-card">'+
+      '<h2 class="state-heading"><span class="state-check">✓</span>Your Founder Session is reserved!</h2>'+
+      '<h1 class="state-title">One final step to secure your session.</h1>'+
+      '<p class="state-copy">Your selected session has been reserved. Please complete the payment within '+Number(payment.paymentDeadlineHours||24)+' hours to confirm your booking.</p>'+
+      '<div class="session-summary"><h3>Your session details</h3>'+
+      '<p class="session-line">'+esc(dateLabel)+'</p>'+
+      (timeLabel?'<p class="session-line">'+esc(timeLabel)+' · 90 minutes</p>':'')+
+      '<p class="session-line"><strong>Session investment: '+esc(payment.fee||'')+'</strong></p></div>'+
+      '<section class="payment-section"><h3>Complete your payment</h3><div class="qr-panel">'+qr+
+      '<p class="qr-caption">Scan to pay '+esc(payment.fee||'')+'</p>'+
+      '<p class="qr-note">Actual UNIC payment QR configured for this booking.</p>'+
+      (payment.upiId?'<div class="payment-meta"><p><strong>UPI ID:</strong> '+esc(payment.upiId)+'</p></div>':'')+
+      bankMarkup+'</div></section>'+
+      '<section class="payment-section"><h3>After completing payment:</h3><ol class="steps">'+
+      '<li>Return to your original UNIC booking email.</li>'+
+      '<li>Reply with your UTR/payment reference or payment screenshot.</li>'+
+      '<li>Our team will verify the payment and confirm your session.</li>'+
+      '</ol><a class="email-cta" href="'+mailto+'">Email payment confirmation&nbsp; →</a></section>'+
+      '</div>';
+  }
+  function renderReserved(data){
+    hideBookingHeader();
+    content.innerHTML=paymentMarkup(data.payment,data.sessionLabel,data.name,data.email);
+  }
+  function render(data){
+    if(data.alreadyBooked === true){
+      hideBookingHeader();
+      content.innerHTML='<div class="booked-message"><strong>✓ Your Founder Session is booked!</strong>Your payment has been verified and your booking is confirmed. Please check your email for the calendar invitation.</div>';
+      return;
+    }
+    if(data.reserved){renderReserved(data);return;}
+    const slotMarkup=(data.slots||[]).map(s=>'<label class="slot-option"><input type="radio" name="slot" value="'+Number(s.number)+'" required><span class="slot-radio"></span><span class="slot-label">'+esc(s.label)+'</span></label>').join('');
+    content.innerHTML=
+      '<form id="bookingForm">'+
+      '<p class="section-label">Available session times</p>'+ 
+      '<div class="slots">'+(slotMarkup||'<div class="no-slots">There are no future slots available on this link. Please reply to your UNIC email for help.</div>')+'</div>'+ 
+      '<div class="fields">'+
+      '<div class="field"><label>Your name</label><input readonly value="'+esc(data.name)+'"></div>'+ 
+      '<div class="field"><label>Email for calendar invitation</label><input readonly value="'+esc(data.email)+'"></div>'+ 
+      '</div>'+ 
+      '<button class="submit" id="confirmButton" type="submit" '+(slotMarkup?'':'disabled')+'>Confirm my session</button>'+ 
+      '<div id="message" class="message" role="status" aria-live="polite"></div></form>';
+
+    const form=document.getElementById('bookingForm');
+    const button=document.getElementById('confirmButton');
+    const message=document.getElementById('message');
+    let busy=false;
+    function show(text,type){message.textContent=text;message.className='message show '+type;}
+    form.addEventListener('submit',async function(event){
+      event.preventDefault();
+      if(busy)return;
+      const selected=form.querySelector('input[name="slot"]:checked');
+      if(!selected){show('Please select a session time first.','error');return;}
+      busy=true;button.disabled=true;button.textContent='Reserving your session…';
+      show('Please wait while we reserve your session and create the calendar invitation.','success');
+      try{
+        const result=await callApi({action:'confirm',token:token,slot:Number(selected.value)});
+        if(!result.ok)throw new Error(result.message||'We could not reserve this booking.');
+        const latest = await callApi({action:'details',token:token});
+        if(!latest.ok)throw new Error(latest.message||'Could not reload your booking status.');
+        render(latest);
+      }catch(error){
+        busy=false;button.disabled=false;button.textContent='Confirm my session';
+        show(error.message||'We could not reserve your session. Please contact UNIC.','error');
+      }
+    });
+  }
+
+  if(!/^[a-f0-9]{32}$/i.test(token)){showError('This booking link is invalid or expired. Please use the link in your UNIC email.');return;}
+  callApi({action:'details',token:token}).then(data=>{
+    if(!data.ok)throw new Error(data.message||'This booking link is invalid or expired.');
+    render(data);
+  }).catch(error=>showError(error.message||'Unable to load this booking. Please try again.'));
+})();
+</script>
+</body>
+</html>
